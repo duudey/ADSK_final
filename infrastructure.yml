@@ -1,0 +1,53 @@
+---
+- hosts: app1-ddd
+  become: yes
+  vars:
+    db_host: 172.31.31.208
+    telegraf_influx_url: http://172.31.31.208:8086
+    telegraf_config_path: "telegraf_apache.conf"
+    apache_mod_stats_enabled: yes
+    packages:
+      - httpd
+      - php
+      - php-mysql
+  roles:
+    - telegraf
+    - java
+  tasks:
+    - include_tasks: tasks/os-dependencies.yml
+
+- hosts: db_nodes
+  become: yes
+  tags: [db]
+  vars:
+    packages:
+      - mariadb
+      - mariadb-server
+      - MySQL-python
+  tasks:
+    - include_tasks: tasks/os-dependencies.yml
+
+
+- hosts: stats_server
+  become: yes
+  tags: [grafana]
+  vars:
+    metrics_database_name: "metrics"
+    metrics_database_password: "metrics"
+    metrics_database_user: "metrics"
+    datasource_name: "my-influx"
+    grafana_http_port: 8080
+    telegraf_config_path: "telegraf_default.conf"
+  roles:
+    - influxdb
+    - grafana
+  tasks:
+    - include_tasks: tasks/configure-grafana.yml
+
+- hosts: web_server
+  become: yes
+  vars:
+    app_private: 172.31.18.47
+    web_public: 18.184.141.211
+  tasks:
+    - include_tasks: tasks/configure-web.yml

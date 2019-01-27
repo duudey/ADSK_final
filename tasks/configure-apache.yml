@@ -1,0 +1,12 @@
+---
+- name: "Install apache modules"
+  apache2_module:
+    state: present
+    name: status
+
+
+
+- name: "ensure web server is restarted"
+  service:
+    name: httpd
+    state: restarted

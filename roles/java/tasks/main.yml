@@ -1,0 +1,28 @@
+- name: "Install Java"
+  yum: 
+    name: java-1.8.0-openjdk
+    state: present
+- name: "Create dir for Java Jar"
+  file:
+    path: /opt/prod
+    state: directory
+- name: "Copy Java jar"
+  copy:
+    src: files/kursspring-0.0.1-SNAPSHOT.jar
+    dest: /opt/prod/kursspring-0.0.1-SNAPSHOT.jar
+    mode: 755
+- name: "Copy systemd conf"
+  copy:
+    src: templates/carrental.service
+    dest: /etc/systemd/system/carrental.service
+- name: "Reload daemon"
+  systemd:
+    daemon_reload: yes
+- name: "Enable app service"
+  service:
+    name: carrental
+    enabled: yes
+- name: "Start app service"
+  service:
+    name: carrental
+    state: started

@@ -1,0 +1,10 @@
+- yum:
+    name: "{{rmp_telegraf}}"
+- template:
+    src: "{{telegraf_config_path}}"
+    dest: "/etc/telegraf/telegraf.conf"
+- service:
+    name: telegraf
+    state: restarted 
+    enabled: yes
+    
