@@ -8,13 +8,13 @@
     state: directory
 - name: "Copy Java jar"
   copy:
-    src: files/kursspring-0.0.1-SNAPSHOT.jar
-    dest: /opt/prod/kursspring-0.0.1-SNAPSHOT.jar
+    src: files/itworks.jar
+    dest: /opt/prod/itworks.jar
     mode: 755
 - name: "Copy systemd conf"
   copy:
-    src: templates/carrental.service
-    dest: /etc/systemd/system/carrental.service
+    src: templates/itworks.service
+    dest: /etc/systemd/system/itworks.service
 - name: "Reload daemon"
   systemd:
     daemon_reload: yes

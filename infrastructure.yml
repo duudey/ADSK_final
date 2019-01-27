@@ -1,9 +1,9 @@
 ---
-- hosts: app1-ddd
+- hosts: app
   become: yes
   vars:
-    db_host: 172.31.31.208
-    telegraf_influx_url: http://172.31.31.208:8086
+    db_host: 172.31.23.16
+    telegraf_influx_url: http://172.31.23.16:8086
     telegraf_config_path: "telegraf_apache.conf"
     apache_mod_stats_enabled: yes
     packages:
@@ -47,7 +47,7 @@
 - hosts: web_server
   become: yes
   vars:
-    app_private: 172.31.18.47
-    web_public: 18.184.141.211
+    app_private: 172.31.26.204
+    web_public: 35.158.95.83
   tasks:
     - include_tasks: tasks/configure-web.yml
