@@ -1,0 +1,13 @@
+[Unit]
+Description=Service
+After=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/usr/bin/java -jar /opt/prod/itworks.jar
+restert=on-failure
+
+[Install]
+WantedBy=multi-user.target
