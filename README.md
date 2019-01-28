@@ -10,7 +10,7 @@ Ansible configuration with stats storage and stats gathering.
 
 
 ## Project visualisation
-![visualisation](https://imgur.com/a/x262OwC)
+![visualisation](https://github.com/duudey/ADSK_final/blob/master/Przechwytywanie.PNG)
 ## How to use 
 
 1. Prepare machines for hosts groups:
